@@ -63,8 +63,8 @@ a {
 
 .header__add:hover {
   color: white;
-  background: #A62423;
-  border: 1px solid #A62423;
+  background: #0B8A22;
+  border: 1px solid #0B8A22;
   cursor: pointer;
 }
 
@@ -138,8 +138,8 @@ textarea {
 
 .submit-item:hover {
   color: white;
-  background: #A62423;
-  border: 1px solid #A62423;
+  background: #0B8A22;
+  border: 1px solid #0B8A22;
   cursor: pointer;
 }
 
@@ -215,6 +215,11 @@ textarea {
   color: #A62423;
 }
 
+.item__buttons--edit {
+  border: 2px solid orange;
+  color: orange;
+}
+
 .item__buttons--toggle:hover {
   color: white;
   background: black;
@@ -223,6 +228,12 @@ textarea {
 
 .item__buttons--delete:hover {
   background: #A62423;
+  color: white;
+  cursor: pointer;
+}
+
+.item__buttons--edit:hover {
+  background: orange;
   color: white;
   cursor: pointer;
 }
