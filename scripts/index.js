@@ -3,11 +3,16 @@
 function renderPage() {
   // store.showAddItemForm();
   bookmark.render();
-  bookmark.addForm;
+  bookmark.bindEventListeners();
+
+  api.getItems(items => {
+    items.forEach(item => store.addItemToStore(item));
+    bookmark.render();
+  });
+
 }
 
-// $(renderPage);
-$(bookmark.addForm);
+$(renderPage);
 
 const testData = { title: 'cats', rating: 5, description: 'ilovecats', url: 'http://cats.com' };
 

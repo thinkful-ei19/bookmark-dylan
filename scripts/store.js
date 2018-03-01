@@ -5,13 +5,18 @@ const store = (function() {
     this.isAdding = !this.isAdding;
   }
 
+  const addItemToStore = function(item) {
+    this.items.push(item);
+  };
+
 
   return {
     items: [],
     isAdding: false,
     ratingFilter: null,
 
-    toggleAddItemForm
+    toggleAddItemForm,
+    addItemToStore
   };
 
 }());
