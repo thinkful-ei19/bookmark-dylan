@@ -9,6 +9,14 @@ const store = (function() {
     this.items.push(item);
   };
 
+  const setRatingFilter = function(rating) {
+    if (rating === 'none') {
+      this.ratingFilter = null;
+    } else {
+      this.ratingFilter = rating;
+    }
+  };
+
   const toggleDetail = function(id) {
     const item = this.items.find(item => item.id === id);
     item.isExpanded = !item.isExpanded;
@@ -25,6 +33,7 @@ const store = (function() {
 
     toggleAddItemForm,
     addItemToStore,
+    setRatingFilter,
     toggleDetail,
     findItemAndDelete
   };

@@ -38,7 +38,13 @@ const bookmark = (function() {
   const render = function() {
     store.isAdding ? $('#add-form').css( { display: 'flex', 'flex-direction': 'column' } ) : $('#add-form').css( { display: 'none' } );
 
-    const html = store.items.map(generateItemHtml);
+    let filteredItems = store.items;
+
+    if (store.ratingFilter) {
+      filteredItems = filteredItems.filter(item => item.rating >= store.ratingFilter);
+    }
+
+    const html = filteredItems.map(generateItemHtml);
     $('.bookmark-list').html(html);
 
     console.log('render ran');
@@ -73,6 +79,15 @@ const bookmark = (function() {
     });
   };
 
+  const handleFilterByRating = function() {
+    $('#rating').change(function(event) {
+      const rating = $(event.currentTarget).val();
+      console.log(rating);
+      store.setRatingFilter(rating);
+      render();
+    });
+  };
+
   const handleToggleDetailView = function() {
     $('.bookmark-list').on('click', '.js-item-toggle', function(event) {
       const id = getIdFromElement(event.currentTarget);
@@ -93,6 +108,7 @@ const bookmark = (function() {
 
   function bindEventListeners() {
     handleNewItemSubmit();
+    handleFilterByRating();
     handleToggleForm();
     handleDeleteItem();
     handleToggleDetailView();
