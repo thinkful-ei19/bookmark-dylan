@@ -17,10 +17,13 @@ const api = (function() {
       data: JSON.stringify(data),
       success: callback
     };
+
+    $.ajax(settings);
   };
 
   return {
-    getItems
+    getItems,
+    createItem
   };
 
 }());
