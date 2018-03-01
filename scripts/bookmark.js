@@ -8,15 +8,27 @@ const bookmark = (function() {
   };
 
   const generateItemHtml = function(item) {
+
+    let detailClass = 'hidden';
+    let detailButtonText = 'Show';
+
+    if (item.isExpanded) {
+      detailClass = '';
+      detailButtonText = 'Hide';
+    }
+
+
     return `<li class="bookmark-item" data-item-id=${item.id}>
               <div class="item__information">
                 <p class="item__information--title">${item.title}</p>
-                <p class="item__information--description">${item.desc}</p>
-                <a href="${item.url}" class="item__information--link">Visit Site</a>
-                <p class="item__information--rating">Rating: <span class="rating--number">${item.rating}</span></p>
+                <div class="js-details ${ detailClass }">
+                  <p class="item__information--description">${item.desc}</p>
+                  <a target="_blank" href="${item.url}" class="item__information--link">Visit Site</a>
+                </div>
+                <p class="item__information--rating">Rating: <span class="rating--number">${item.rating}/5</span></p>
               </div>
               <div class="item__buttons">
-                <button class="item__buttons--toggle js-item-toggle">Show details</button>
+                <button class="item__buttons--toggle js-item-toggle">${detailButtonText} details</button>
                 <button class="item__buttons--delete js-item-delete">Delete</button>
               </div>
             </li>
@@ -56,6 +68,14 @@ const bookmark = (function() {
     });
   };
 
+  const handleToggleDetailView = function() {
+    $('.bookmark-list').on('click', '.js-item-toggle', function(event) {
+      const id = getIdFromElement(event.currentTarget);
+      store.toggleDetail(id);
+      render();
+    });
+  };
+
   const handleDeleteItem = function() {
     $('.bookmark-list').on('click', '.js-item-delete', function(event) {
       const id = getIdFromElement(event.currentTarget);
@@ -70,6 +90,7 @@ const bookmark = (function() {
     handleNewItemSubmit();
     handleToggleForm();
     handleDeleteItem();
+    handleToggleDetailView();
   }
 
   return {

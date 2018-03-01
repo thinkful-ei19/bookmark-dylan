@@ -1,18 +1,22 @@
 // eslint-disable-next-line no-unused-vars
 const store = (function() {
 
-  function toggleAddItemForm() {
+  const toggleAddItemForm = function() {
     this.isAdding = !this.isAdding;
-  }
+  };
 
   const addItemToStore = function(item) {
     this.items.push(item);
   };
 
+  const toggleDetail = function(id) {
+    const item = this.items.find(item => item.id === id);
+    item.isExpanded = !item.isExpanded;
+  };
+
   const findItemAndDelete = function(id) {
     this.items = this.items.filter(item => item.id !== id);
   };
-
 
   return {
     items: [],
@@ -21,6 +25,7 @@ const store = (function() {
 
     toggleAddItemForm,
     addItemToStore,
+    toggleDetail,
     findItemAndDelete
   };
 
