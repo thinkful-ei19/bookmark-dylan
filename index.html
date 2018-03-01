@@ -1,3 +1,4 @@
+<!DOCTYPE html> 
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -9,10 +10,10 @@
 <body>
 
   <header class="header" role="banner">
-    <button class="header__add">Add bookmark</button>
+    <button class="header__add js-add-item-form">Add bookmark</button>
     <h1 class="header__title">BOOKMARKit</h1>
     <form class="header__rating">
-      <label for="rating">Rating</label>
+      <label for="rating">Rating Filter</label>
       <select id="rating" name="rating">
         <option value="1">1</option> 
         <option value="2">2</option>
@@ -23,7 +24,7 @@
     </form>
   </header>
 
-  <form id="add-form">
+  <form id="add-form" class="hidden">
     <input type="text" placeholder="title">
     <input type="text" placeholder="link">
     <textarea name="textarea" rows="10" cols="50" placeholder="description"></textarea>
@@ -51,12 +52,12 @@
       <label for="5">5</label>
     </div>
 
-    <button type="submit">Submit</button>
+    <button class="js-submit-item">Submit</button>
 
   </form>
 
   <ul class="bookmark-list">
-    <li class="bookmark-item">
+    <!-- <li class="bookmark-item">
       <div class="item__information">
         <p class="item__information--title">Cats</p>
         <p class="item__information--description">I hate cats</p>
@@ -93,7 +94,7 @@
             <button class="item__buttons--toggle">Show details</button>
             <button class="item__buttons--delete">Delete</button>
           </div>
-        </li>
+        </li> -->
   </ul>
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
