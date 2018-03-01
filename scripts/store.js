@@ -6,7 +6,7 @@ const store = (function() {
   };
 
   const addItemToStore = function(item) {
-    this.items.push(item);
+    this.items.unshift(item);
   };
 
   const setRatingFilter = function(rating) {
