@@ -1,10 +1,13 @@
-/* global $, store, api */
+/* global $, store, api, bookmark */
 
 function renderPage() {
-  store.showAddItemForm();
+  // store.showAddItemForm();
+  bookmark.render();
+  bookmark.addForm;
 }
 
-$(renderPage);
+// $(renderPage);
+$(bookmark.addForm);
 
 const testData = { title: 'cats', rating: 5, description: 'ilovecats', url: 'http://cats.com' };
 
