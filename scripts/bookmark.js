@@ -65,6 +65,11 @@ const bookmark = (function() {
         render();
       });
 
+      $(event.currentTarget).find('#title').val('');
+      $(event.currentTarget).find('#link').val('');
+      $(event.currentTarget).find('#description').val('');
+      $(event.currentTarget).find('input[name=rating]:checked').prop('checked', false);
+
     });
   };
 
