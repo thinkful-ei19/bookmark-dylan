@@ -9,6 +9,10 @@ const store = (function() {
     this.items.push(item);
   };
 
+  const findItemAndDelete = function(id) {
+    this.items = this.items.filter(item => item.id !== id);
+  };
+
 
   return {
     items: [],
@@ -16,7 +20,8 @@ const store = (function() {
     ratingFilter: null,
 
     toggleAddItemForm,
-    addItemToStore
+    addItemToStore,
+    findItemAndDelete
   };
 
 }());

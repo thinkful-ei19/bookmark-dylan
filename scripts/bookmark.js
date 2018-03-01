@@ -3,8 +3,12 @@
 // eslint-disable-next-line no-unused-vars
 const bookmark = (function() {
 
+  const getIdFromElement = function(item) {
+    return $(item).parents('li').data('item-id');
+  };
+
   const generateItemHtml = function(item) {
-    return `<li class="bookmark-item">
+    return `<li class="bookmark-item" data-item-id=${item.id}>
               <div class="item__information">
                 <p class="item__information--title">${item.title}</p>
                 <p class="item__information--description">${item.desc}</p>
@@ -12,8 +16,8 @@ const bookmark = (function() {
                 <p class="item__information--rating">Rating: <span class="rating--number">${item.rating}</span></p>
               </div>
               <div class="item__buttons">
-                <button class="item__buttons--toggle">Show details</button>
-                <button class="item__buttons--delete">Delete</button>
+                <button class="item__buttons--toggle js-item-toggle">Show details</button>
+                <button class="item__buttons--delete js-item-delete">Delete</button>
               </div>
             </li>
     `;
@@ -52,9 +56,20 @@ const bookmark = (function() {
     });
   };
 
+  const handleDeleteItem = function() {
+    $('.bookmark-list').on('click', '.js-item-delete', function(event) {
+      const id = getIdFromElement(event.currentTarget);
+      api.deleteItem(id, function() {
+        store.findItemAndDelete(id);
+        render();
+      });
+    });
+  };
+
   function bindEventListeners() {
     handleNewItemSubmit();
     handleToggleForm();
+    handleDeleteItem();
   }
 
   return {

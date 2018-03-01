@@ -21,9 +21,23 @@ const api = (function() {
     $.ajax(settings);
   };
 
+
+  const deleteItem = function(id, callback) {
+    const settings = {
+      url: `${BASE_URL}/${id}`,
+      method: 'DELETE',
+      contentType: 'application/json',
+      data: '',
+      success: callback
+    };
+
+    $.ajax(settings);
+  };
+
   return {
     getItems,
-    createItem
+    createItem,
+    deleteItem
   };
 
 }());
