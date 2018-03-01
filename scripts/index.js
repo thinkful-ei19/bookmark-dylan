@@ -1,4 +1,4 @@
-/* global $, store */
+/* global $, store, api */
 
 function renderPage() {
   store.showAddItemForm();
