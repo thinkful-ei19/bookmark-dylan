@@ -36,7 +36,7 @@ const bookmark = (function() {
   };
 
   const render = function() {
-    store.isAdding ? $('#add-form').css( { display: 'flex', 'flex-direction': 'column' } ) : $('#add-form').css( { display: 'none' } );
+    store.isAdding ? $('#add-form').css( { display: 'flex' } ) : $('#add-form').css( { display: 'none' } );
 
     let filteredItems = store.items;
 
@@ -67,6 +67,7 @@ const bookmark = (function() {
       const data = { title, url, desc, rating };
 
       api.createItem(data, (newItem) => {
+        store.isAdding = false;
         store.addItemToStore(newItem);
         render();
       });

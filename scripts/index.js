@@ -1,7 +1,6 @@
 /* global $, store, api, bookmark */
 
 function renderPage() {
-  // store.showAddItemForm();
   bookmark.render();
   bookmark.bindEventListeners();
 
@@ -13,12 +12,3 @@ function renderPage() {
 }
 
 $(renderPage);
-
-// api.getItems(
-//   api.createItem(testData, response => {
-//     console.log(response);
-//   }));
-
-api.getItems(response => {
-  console.log(response);
-});
