@@ -278,7 +278,24 @@ textarea {
 
 .error-message-wrap {
   margin: 0 auto;
+  line-height: 1.1em;
   display: flex;
   max-width: 600px;
   justify-content: center;
+  align-items: center;
+  color: #A62423;
+}
+
+.exit-error-message {
+  background: none;
+  border: none;
+  color: #A62423;
+  font-size: 20px;
+  padding: 0;
+  margin-left: 15px;
+  height: 20px;
+}
+
+.exit-error-message:hover {
+  cursor: pointer;
 }

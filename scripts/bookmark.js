@@ -138,6 +138,7 @@ const bookmark = (function() {
   const handleToggleForm = () => {
     $('.js-add-item-form').click(() => {      
       store.toggleAddItemForm();
+      store.errorMessage = '';
       render();
     });
   };
@@ -241,6 +242,7 @@ const bookmark = (function() {
 
   const handleDeleteErrorMessage = () => {
     $('.error-message-wrap').on('click', '.exit-error-message', event => {
+      event.preventDefault();
       store.errorMessage = '';
       render();
     });
