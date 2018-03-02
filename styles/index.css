@@ -275,3 +275,10 @@ textarea {
     margin: 0 auto;
   }
 }
+
+.error-message-wrap {
+  margin: 0 auto;
+  display: flex;
+  max-width: 600px;
+  justify-content: center;
+}

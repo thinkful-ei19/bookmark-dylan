@@ -15,8 +15,8 @@ const api = (function() {
       method: 'POST',
       contentType: 'application/json',
       data: JSON.stringify(data),
-      success: success,
-      error: error
+      success,
+      error
     };
 
     $.ajax(settings);

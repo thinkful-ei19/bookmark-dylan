@@ -37,7 +37,7 @@ const store = (function() {
     items: [],
     isAdding: false,
     ratingFilter: null,
-    isAddErrorShowing: false,
+    errorMessage: '',
 
     toggleAddItemForm,
     addItemToStore,

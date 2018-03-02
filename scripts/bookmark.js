@@ -7,9 +7,57 @@ const bookmark = (function() {
     return $(item).parents('li').data('item-id');
   };
 
-  // const generateErrorMessage = function(message) {
+  const generateErrorMessageHtml = function(message) {
+    if (store.errorMessage) {
+      return `
+        <p>${message}</p>
+        <button class="exit-error-message">X</button>
+      `;
+    } else {
+      return '';
+    }
+  };
 
-  // };
+  const generateAddFormHtml = function() {
+
+    if (!store.isAdding) {
+      return '';
+    } else {
+      return `<form id="add-form" class="js-add-form" role="form">
+                <div class="title-url-wrap">
+                  <label for="title">Title: </label>
+                  <input id="title" type="text" placeholder="title">
+                  <label for="link">URL: </label>
+                  <input id="link" type="text" placeholder="link">
+                </div>
+                <label for="description">Description: </label>
+                <textarea id="description" name="textarea" rows="10" cols="50" placeholder="description"></textarea>
+                <div class="rating-submit-wrap">
+                  <div class="rating-wrap">
+                    <p>Rating: </p>
+
+                    <input type="radio" id="1" name="rating" value="1">
+                    <label for="1">1</label>
+                
+                    <input type="radio" id="2" name="rating" value="2">
+                    <label for="2">2</label>
+                
+                    <input type="radio" id="3" name="rating" value="3">
+                    <label for="3">3</label>
+
+                    <input type="radio" id="4" name="rating" value="4">
+                    <label for="4">4</label>
+
+                    <input type="radio" id="5" name="rating" value="5">
+                    <label for="5">5</label>
+                  </div>
+
+                  <button class="submit-item js-submit-item" role="button">Submit</button>
+                </div>
+              </form>
+            `;
+    }
+  };
 
   const generateItemHtml = function(item) {
 
@@ -71,11 +119,15 @@ const bookmark = (function() {
   };
 
   const render = function() {
-    !store.isAdding ? $('#add-form').addClass('hidden') : $('#add-form').removeClass('hidden');
-
     let filteredItems = store.items;
 
     if (store.ratingFilter) filteredItems = filteredItems.filter(item => item.rating >= store.ratingFilter);
+
+    const errorMessageHtml = generateErrorMessageHtml(store.errorMessage);
+    $('.error-message-wrap').html(errorMessageHtml);
+
+    const addFormHtml = generateAddFormHtml();
+    $('.add-form-wrap').html(addFormHtml);
 
     const html = filteredItems.map(generateItemHtml);
     $('.bookmark-list').html(html);
@@ -91,7 +143,7 @@ const bookmark = (function() {
   };
 
   const handleNewItemSubmit = () => {
-    $('.js-add-form').submit(event => {
+    $('.add-form-wrap').on('submit', '.js-add-form', event => {
       event.preventDefault();
       const title = $(event.currentTarget).find('#title').val();
       const url = $(event.currentTarget).find('#link').val();
@@ -100,17 +152,17 @@ const bookmark = (function() {
       const data = { title, url, desc, rating };
 
       const successCallback = (newItem) => {
-        store.isAdding = false;
+        store.toggleAddItemForm();
         store.addItemToStore(newItem);
         render();
       };
 
       const errorCallback = response => {
-        console.log(response.responseJSON.message);
-        // const message = response.responseJSON.message;
+        // console.log(response.responseJSON.message);
+        const message = response.responseJSON.message;
 
-        // store.isAddErrorShowing = true;
-        // render();
+        store.errorMessage = message;
+        render();
       };
 
       api.createItem(data, successCallback, errorCallback);
@@ -187,6 +239,13 @@ const bookmark = (function() {
     });
   };
 
+  const handleDeleteErrorMessage = () => {
+    $('.error-message-wrap').on('click', '.exit-error-message', event => {
+      store.errorMessage = '';
+      render();
+    });
+  };
+
   function bindEventListeners() {
     handleNewItemSubmit();
     handleFilterByRating();
@@ -195,6 +254,7 @@ const bookmark = (function() {
     handleToggleEdit();
     handleEditItem();
     handleToggleDetailView();
+    handleDeleteErrorMessage();
   }
 
   return {
