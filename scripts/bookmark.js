@@ -32,7 +32,7 @@ const bookmark = (function() {
                     <a target="_blank" href="${item.url}" class="item__information--link">Visit Site</a>
                     <p class="item__information--description">${item.desc}</p>
                   </div>
-                  <p class="item__information--rating">Rating: <span class="rating--number">${item.rating}/5</span></p>
+                  <p class="item__information--rating">Rating: <span class="rating--number">${item.rating}</span>/5</p>
                 </div>
                 <div class="item__buttons">
                   <button class="item__buttons--toggle js-item-toggle">${detailButtonText} details</button>
@@ -73,7 +73,7 @@ const bookmark = (function() {
   };
 
   const render = function() {
-    store.isAdding ? $('#add-form').css( { display: 'flex' } ) : $('#add-form').css( { display: 'none' } );
+    !store.isAdding ? $('#add-form').addClass('hidden') : $('#add-form').removeClass('hidden');
 
     let filteredItems = store.items;
 
@@ -88,15 +88,7 @@ const bookmark = (function() {
   };
 
   const handleToggleForm = function() {
-    $('.js-add-item-form').click(() => {
-      if (!store.isAdding) {
-        $('#add-form').removeClass('bounceOutRight');
-        $('#add-form').addClass('bounceInRight');
-      } else if (store.isAdding) {
-        $('#add-form').removeClass('bounceInRight');
-        $('#add-form').addClass('bounceOutRight');
-      }
-      
+    $('.js-add-item-form').click(() => {      
       store.toggleAddItemForm();
       render();
     });
@@ -128,7 +120,6 @@ const bookmark = (function() {
   const handleFilterByRating = function() {
     $('#rating').change(function(event) {
       const rating = $(event.currentTarget).val();
-      console.log(rating);
       store.setRatingFilter(rating);
       render();
     });
@@ -153,9 +144,21 @@ const bookmark = (function() {
   const handleEditItem = function() {
     $('.bookmark-list').on('submit', '.js-edit-form', function(event) {
       event.preventDefault();
-      const desc = $(event.currentTarget).find('#edit-description').val();
-      const rating = $(event.currentTarget).find('input[name=edit-rating]:checked').val();
-      const data = { desc, rating };
+      const descFromInput = $(event.currentTarget).find('#edit-description').val();
+      const ratingFromInput = $(event.currentTarget).find('input[name=edit-rating]:checked').val();
+
+      const currentDesc = $(event.currentTarget).parents('li').find('.item__information--description').text();
+      const currentRating = $(event.currentTarget).parents('li').find('.rating--number').text();
+      
+      const data = {
+        desc: descFromInput,
+        rating: ratingFromInput
+      };
+
+      if (!descFromInput) data.desc = currentDesc;
+
+      if (!ratingFromInput) data.rating = currentRating;
+
       const id = getIdFromElement(event.currentTarget);
 
       api.updateItem(id, data, function() {
