@@ -268,3 +268,10 @@ textarea {
   border: 1px solid #0B8A22;
   cursor: pointer;
 }
+
+@media screen and (max-width: 700px) {
+  .edit-form {
+    width: 94%;
+    margin: 0 auto;
+  }
+}
