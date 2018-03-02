@@ -159,9 +159,7 @@ const bookmark = (function() {
       };
 
       const errorCallback = response => {
-        // console.log(response.responseJSON.message);
         const message = response.responseJSON.message;
-
         store.errorMessage = message;
         render();
       };
