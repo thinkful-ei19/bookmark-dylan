@@ -9,13 +9,14 @@ const api = (function() {
     $.getJSON(BASE_URL, callback);
   };
 
-  const createItem = (data, callback) => {
+  const createItem = (data, success, error) => {
     const settings = {
       url: BASE_URL,
       method: 'POST',
       contentType: 'application/json',
       data: JSON.stringify(data),
-      success: callback
+      success: success,
+      error: error
     };
 
     $.ajax(settings);

@@ -7,6 +7,10 @@ const bookmark = (function() {
     return $(item).parents('li').data('item-id');
   };
 
+  // const generateErrorMessage = function(message) {
+
+  // };
+
   const generateItemHtml = function(item) {
 
     let detailClass = 'hidden';
@@ -95,11 +99,21 @@ const bookmark = (function() {
       const rating = $('input[name=rating]:checked').val();
       const data = { title, url, desc, rating };
 
-      api.createItem(data, (newItem) => {
+      const successCallback = (newItem) => {
         store.isAdding = false;
         store.addItemToStore(newItem);
         render();
-      });
+      };
+
+      const errorCallback = response => {
+        console.log(response.responseJSON.message);
+        // const message = response.responseJSON.message;
+
+        // store.isAddErrorShowing = true;
+        // render();
+      };
+
+      api.createItem(data, successCallback, errorCallback);
 
       $(event.currentTarget).find('#title').val('');
       $(event.currentTarget).find('#link').val('');
