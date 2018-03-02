@@ -22,6 +22,17 @@ const store = (function() {
     item.isExpanded = !item.isExpanded;
   };
 
+  const toggleEditItem = function(id) {
+    const item = this.items.find(item => item.id === id);
+    item.canEdit = !item.canEdit;
+  };
+
+  const updateItem = function(id, newData) {
+    const foundItem = this.items.find(item => item.id === id);
+    foundItem.canEdit = !foundItem.canEdit;
+    return Object.assign(foundItem, newData);
+  };
+
   const findItemAndDelete = function(id) {
     this.items = this.items.filter(item => item.id !== id);
   };
@@ -35,6 +46,8 @@ const store = (function() {
     addItemToStore,
     setRatingFilter,
     toggleDetail,
+    toggleEditItem,
+    updateItem,
     findItemAndDelete
   };
 

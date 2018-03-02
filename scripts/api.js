@@ -21,6 +21,18 @@ const api = (function() {
     $.ajax(settings);
   };
 
+  const updateItem = function(id, updatedData, callback) {
+    const settings = {
+      url: `${BASE_URL}/${id}`,
+      method: 'PATCH',
+      contentType: 'application/json',
+      data: JSON.stringify(updatedData),
+      success: callback
+    };
+
+    $.ajax(settings);
+  };
+
 
   const deleteItem = function(id, callback) {
     const settings = {
@@ -37,6 +49,7 @@ const api = (function() {
   return {
     getItems,
     createItem,
+    updateItem,
     deleteItem
   };
 
