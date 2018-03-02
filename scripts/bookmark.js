@@ -20,7 +20,7 @@ const bookmark = (function() {
       editClass = '';
     }
 
-    if (item.canEdit) editFormClass = '';
+    if (item.canEdit && item.isExpanded) editFormClass = '';
 
     return `<li data-item-id=${item.id}>
               <div class="bookmark-item">
