@@ -10,11 +10,7 @@ const store = (function() {
   };
 
   const setRatingFilter = function(rating) {
-    if (rating === 'none') {
-      this.ratingFilter = null;
-    } else {
-      this.ratingFilter = rating;
-    }
+    rating === 'none' ? this.ratingFilter = null : this.ratingFilter = rating;
   };
 
   const toggleDetail = function(id) {

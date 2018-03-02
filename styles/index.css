@@ -238,3 +238,33 @@ textarea {
   color: white;
   cursor: pointer;
 }
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 10px 10px 40px #ccc;
+  padding: 20px 30px;
+}
+
+.edit-rating-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  max-width: 300px;
+}
+
+.edit-form-submit {
+  padding: 20px 10px;
+  max-width: 150px;
+  background: none;
+  font-size: 14px;
+  border-radius: 5px;
+  transition: all .5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.edit-form-submit:hover {
+  color: white;
+  background: #0B8A22;
+  border: 1px solid #0B8A22;
+  cursor: pointer;
+}

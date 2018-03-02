@@ -5,11 +5,11 @@ const api = (function() {
 
   const BASE_URL = 'https://thinkful-list-api.herokuapp.com/dylan/bookmarks';
 
-  const getItems = function(callback) {
+  const getItems = callback => {
     $.getJSON(BASE_URL, callback);
   };
 
-  const createItem = function(data, callback) {
+  const createItem = (data, callback) => {
     const settings = {
       url: BASE_URL,
       method: 'POST',
@@ -21,7 +21,7 @@ const api = (function() {
     $.ajax(settings);
   };
 
-  const updateItem = function(id, updatedData, callback) {
+  const updateItem = (id, updatedData, callback) => {
     const settings = {
       url: `${BASE_URL}/${id}`,
       method: 'PATCH',
@@ -34,7 +34,7 @@ const api = (function() {
   };
 
 
-  const deleteItem = function(id, callback) {
+  const deleteItem = (id, callback) => {
     const settings = {
       url: `${BASE_URL}/${id}`,
       method: 'DELETE',

@@ -20,9 +20,7 @@ const bookmark = (function() {
       editClass = '';
     }
 
-    if (item.canEdit) {
-      editFormClass = '';
-    }
+    if (item.canEdit) editFormClass = '';
 
     return `<li data-item-id=${item.id}>
               <div class="bookmark-item">
@@ -41,29 +39,28 @@ const bookmark = (function() {
                 </div>
               </div>
               <form class="edit-form js-edit-form ${editFormClass}">
-                <label for="edit-description">Description</label>
-                <textarea id="edit-description" name="textarea" rows="10" cols="50"></textarea>
+                <label for="edit-description">Description: </label>
+                <textarea id="edit-description" name="textarea" rows="10" cols="50">${item.desc}</textarea>
                 <div class="edit-rating-wrap">
                   <p>Rating: </p>
-
                   <input type="radio" id="1"
-                    name="edit-rating" value="1">
+                    name="edit-rating-${item.id}" value="1">
                   <label for="1">1</label>
               
                   <input type="radio" id="2"
-                    name="edit-rating" value="2">
+                    name="edit-rating-${item.id}" value="2">
                   <label for="2">2</label>
               
                   <input type="radio" id="3"
-                    name="edit-rating" value="3">
+                    name="edit-rating-${item.id}" value="3">
                   <label for="3">3</label>
 
                   <input type="radio" id="4"
-                    name="edit-rating" value="4">
+                    name="edit-rating-${item.id}" value="4">
                   <label for="4">4</label>
 
                   <input type="radio" id="5"
-                    name="edit-rating" value="5">
+                    name="edit-rating-${item.id}" value="5">
                   <label for="5">5</label>
                 </div>
                 <button type="submit" class="edit-form-submit">Save Changes</button>
@@ -77,9 +74,7 @@ const bookmark = (function() {
 
     let filteredItems = store.items;
 
-    if (store.ratingFilter) {
-      filteredItems = filteredItems.filter(item => item.rating >= store.ratingFilter);
-    }
+    if (store.ratingFilter) filteredItems = filteredItems.filter(item => item.rating >= store.ratingFilter);
 
     const html = filteredItems.map(generateItemHtml);
     $('.bookmark-list').html(html);
@@ -87,15 +82,15 @@ const bookmark = (function() {
     console.log('render ran');
   };
 
-  const handleToggleForm = function() {
+  const handleToggleForm = () => {
     $('.js-add-item-form').click(() => {      
       store.toggleAddItemForm();
       render();
     });
   };
 
-  const handleNewItemSubmit = function() {
-    $('.js-add-form').submit(function(event) {
+  const handleNewItemSubmit = () => {
+    $('.js-add-form').submit(event => {
       event.preventDefault();
       const title = $(event.currentTarget).find('#title').val();
       const url = $(event.currentTarget).find('#link').val();
@@ -117,35 +112,36 @@ const bookmark = (function() {
     });
   };
 
-  const handleFilterByRating = function() {
-    $('#rating').change(function(event) {
+  const handleFilterByRating = () => {
+    $('#rating').change(event => {
       const rating = $(event.currentTarget).val();
       store.setRatingFilter(rating);
       render();
     });
   };
 
-  const handleToggleDetailView = function() {
-    $('.bookmark-list').on('click', '.js-item-toggle', function(event) {
+  const handleToggleDetailView = () => {
+    $('.bookmark-list').on('click', '.js-item-toggle', event => {
       const id = getIdFromElement(event.currentTarget);
       store.toggleDetail(id);
       render();
     });
   };
 
-  const handleToggleEdit = function() {
-    $('.bookmark-list').on('click', '.js-item-edit', function(event) {
+  const handleToggleEdit = () => {
+    $('.bookmark-list').on('click', '.js-item-edit', event => {
       const id = getIdFromElement(event.currentTarget);
       store.toggleEditItem(id);
       render();
     });
   };
 
-  const handleEditItem = function() {
-    $('.bookmark-list').on('submit', '.js-edit-form', function(event) {
+  const handleEditItem = () => {
+    $('.bookmark-list').on('submit', '.js-edit-form', event => {
       event.preventDefault();
+      const id = getIdFromElement(event.currentTarget);
       const descFromInput = $(event.currentTarget).find('#edit-description').val();
-      const ratingFromInput = $(event.currentTarget).find('input[name=edit-rating]:checked').val();
+      const ratingFromInput = $(event.currentTarget).find(`input[name=edit-rating-${id}]:checked`).val();
 
       const currentDesc = $(event.currentTarget).parents('li').find('.item__information--description').text();
       const currentRating = $(event.currentTarget).parents('li').find('.rating--number').text();
@@ -159,9 +155,7 @@ const bookmark = (function() {
 
       if (!ratingFromInput) data.rating = currentRating;
 
-      const id = getIdFromElement(event.currentTarget);
-
-      api.updateItem(id, data, function() {
+      api.updateItem(id, data, () => {
         store.updateItem(id, data);
         render();
       });
@@ -172,10 +166,10 @@ const bookmark = (function() {
     });
   };
 
-  const handleDeleteItem = function() {
-    $('.bookmark-list').on('click', '.js-item-delete', function(event) {
+  const handleDeleteItem = () => {
+    $('.bookmark-list').on('click', '.js-item-delete', event => {
       const id = getIdFromElement(event.currentTarget);
-      api.deleteItem(id, function() {
+      api.deleteItem(id, () => {
         store.findItemAndDelete(id);
         render();
       });
