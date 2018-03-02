@@ -33,37 +33,32 @@ const bookmark = (function() {
                   <p class="item__information--rating">Rating: <span class="rating--number">${item.rating}</span>/5</p>
                 </div>
                 <div class="item__buttons">
-                  <button class="item__buttons--toggle js-item-toggle">${detailButtonText} details</button>
-                  <button class="item__buttons--edit js-item-edit ${editClass}">Edit</button>
-                  <button class="item__buttons--delete js-item-delete">Delete</button>
+                  <button class="item__buttons--toggle js-item-toggle" role="button">${detailButtonText} details</button>
+                  <button class="item__buttons--edit js-item-edit ${editClass}" role="button">Edit</button>
+                  <button class="item__buttons--delete js-item-delete" role="button">Delete</button>
                 </div>
               </div>
-              <form class="edit-form js-edit-form ${editFormClass}">
+              <form class="edit-form js-edit-form ${editFormClass}" role="form">
                 <label for="edit-description">Description: </label>
                 <textarea id="edit-description" name="textarea" rows="10" cols="50">${item.desc}</textarea>
                 <div class="edit-rating-wrap">
                   <p>Rating: </p>
-                  <input type="radio" id="1"
-                    name="edit-rating-${item.id}" value="1">
+                  <input type="radio" id="1" name="edit-rating-${item.id}" value="1">
                   <label for="1">1</label>
               
-                  <input type="radio" id="2"
-                    name="edit-rating-${item.id}" value="2">
+                  <input type="radio" id="2" name="edit-rating-${item.id}" value="2">
                   <label for="2">2</label>
               
-                  <input type="radio" id="3"
-                    name="edit-rating-${item.id}" value="3">
+                  <input type="radio" id="3" name="edit-rating-${item.id}" value="3">
                   <label for="3">3</label>
 
-                  <input type="radio" id="4"
-                    name="edit-rating-${item.id}" value="4">
+                  <input type="radio" id="4" name="edit-rating-${item.id}" value="4">
                   <label for="4">4</label>
 
-                  <input type="radio" id="5"
-                    name="edit-rating-${item.id}" value="5">
+                  <input type="radio" id="5" name="edit-rating-${item.id}" value="5">
                   <label for="5">5</label>
                 </div>
-                <button type="submit" class="edit-form-submit">Save Changes</button>
+                <button type="submit" class="edit-form-submit" role="button">Save Changes</button>
               </form>
             </li>
     `;
