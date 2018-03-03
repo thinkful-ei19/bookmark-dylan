@@ -75,7 +75,7 @@ const bookmark = (function() {
 
     if (item.canEdit && item.isExpanded) editFormClass = '';
 
-    if (!item.rating) ratingClass = 'hidden';
+    if (!item.rating || typeof item.rating !== 'number') ratingClass = 'hidden';
 
     return `<section role="region">
               <li data-item-id=${item.id}>
@@ -220,10 +220,18 @@ const bookmark = (function() {
 
       if (!ratingFromInput) data.rating = currentRating;
 
-      api.updateItem(id, data, () => {
+      const successCallback = () => {
         store.updateItem(id, data);
         render();
-      });
+      };
+
+      const errorCallback = (res) => {
+        const message = res.responseJSON.message;
+        store.errorMessage = message;
+        render();
+      };
+
+      api.updateItem(id, data, successCallback, errorCallback);
 
       $(event.currentTarget).find('#edit-description').val('');
       $(event.currentTarget).find('input[name=edit-rating]:checked').prop('checked', false);

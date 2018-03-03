@@ -22,13 +22,14 @@ const api = (function() {
     $.ajax(settings);
   };
 
-  const updateItem = (id, updatedData, callback) => {
+  const updateItem = (id, updatedData, success, error) => {
     const settings = {
       url: `${BASE_URL}/${id}`,
       method: 'PATCH',
       contentType: 'application/json',
       data: JSON.stringify(updatedData),
-      success: callback
+      success,
+      error
     };
 
     $.ajax(settings);
