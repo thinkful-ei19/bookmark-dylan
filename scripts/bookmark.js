@@ -65,6 +65,7 @@ const bookmark = (function() {
     let detailButtonText = 'Show';
     let editClass = 'hidden';
     let editFormClass = 'hidden';
+    let ratingClass = '';
 
     if (item.isExpanded) {
       detailClass = '';
@@ -73,6 +74,8 @@ const bookmark = (function() {
     }
 
     if (item.canEdit && item.isExpanded) editFormClass = '';
+
+    if (!item.rating) ratingClass = 'hidden';
 
     return `<section role="region">
               <li data-item-id=${item.id}>
@@ -83,7 +86,7 @@ const bookmark = (function() {
                       <a target="_blank" rel="noopener noreferrer" href="${item.url}" class="item__information--link">Visit Site</a>
                       <p class="item__information--description">${item.desc}</p>
                     </div>
-                    <p class="item__information--rating">Rating: <span class="rating--number">${item.rating}</span>/5</p>
+                    <p class="item__information--rating ${ratingClass}">Rating: <span class="rating--number">${item.rating}</span>/5</p>
                   </div>
                   <div class="item__buttons">
                     <button class="item__buttons--toggle js-item-toggle" role="button">${detailButtonText} details</button>
